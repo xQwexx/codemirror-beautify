@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+      "rootDir": "src",
+      "target": "es5"
+    },
+    "exclude": [
+      "dist",
+      "node_modules"
+    ],
+    "include": [
+        "src",
+        "test"
+      ],
+      "paths": {
+        "module": ["src"]
+      }
+  }
