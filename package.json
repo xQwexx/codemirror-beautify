@@ -1,6 +1,6 @@
 {
   "name": "@qwex/codemirror-beautify",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Code formatting component for the CodeMirror code editor",
   "repository": {
     "type": "git",

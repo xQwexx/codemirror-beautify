@@ -34,7 +34,7 @@ function beautifyText(range, { state, dispatch }) {
     }
     const configRaw = state.facet(beautifyConfig) ?? {}
     
-    const beautified = getBeautify(state)(state.doc, { indent_size: getIndentUnit(state), ...configRaw })
+    const beautified = getBeautify(state)(state.doc.toString(), { indent_size: getIndentUnit(state), ...configRaw })
     if (state.selection.asSingle()
         .main == range) {
         dispatch(state.update(state.replaceSelection(beautified)))
