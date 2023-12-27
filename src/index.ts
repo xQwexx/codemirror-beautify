@@ -21,7 +21,7 @@ function getBeautify(state: EditorState) {
     } else if (stateLanguage === javascriptLanguage) {
         return (text: string, config: BeautifyConfig) => js_beautify(text, config)
     } else {
-        (text: string, config: BeautifyConfig) => text
+        return (text: string, config: BeautifyConfig) => text
     }
 }
 
@@ -34,7 +34,7 @@ function beautifyText(range, { state, dispatch }) {
     }
     const configRaw = state.facet(beautifyConfig) ?? {}
     
-    const beautified = getBeautify(state)(state.doc.toString(), { indent_size: getIndentUnit(state), ...configRaw })
+    const beautified = getBeautify(state)(state.doc, { indent_size: getIndentUnit(state), ...configRaw })
     if (state.selection.asSingle()
         .main == range) {
         dispatch(state.update(state.replaceSelection(beautified)))

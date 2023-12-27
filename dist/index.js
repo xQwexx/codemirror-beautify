@@ -16,7 +16,9 @@ function getBeautify(state) {
     else if (stateLanguage === javascriptLanguage) {
         return (text, config) => js_beautify(text, config);
     }
-    else ;
+    else {
+        return (text, config) => text;
+    }
 }
 function beautifyText(range, { state, dispatch }) {
     var _a;
@@ -27,21 +29,25 @@ function beautifyText(range, { state, dispatch }) {
         textIter = textIter.next();
     }
     const configRaw = (_a = state.facet(beautifyConfig)) !== null && _a !== void 0 ? _a : {};
-    const beautified = getBeautify(state)(state.doc.toString(), Object.assign({ indent_size: getIndentUnit(state) }, configRaw));
-    if (state.selection.asSingle().main == range) {
+    const beautified = getBeautify(state)(state.doc, Object.assign({ indent_size: getIndentUnit(state) }, configRaw));
+    if (state.selection.asSingle()
+        .main == range) {
         dispatch(state.update(state.replaceSelection(beautified)));
     }
     else {
-        dispatch(({ changes: {
+        dispatch(({
+            changes: {
                 from: range.from,
                 to: range.to,
                 insert: beautified
-            } }));
+            }
+        }));
     }
     return true;
 }
 const autoFormatSelected = ({ state, dispatch }) => {
-    const range = state.selection.asSingle().main;
+    const range = state.selection.asSingle()
+        .main;
     return beautifyText(range, { state, dispatch });
 };
 const autoFormaAll = ({ state, dispatch }) => {
